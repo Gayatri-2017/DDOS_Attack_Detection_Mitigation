@@ -1,3 +1,5 @@
+figlet -f cosmic "GG"
+echo -e "\n"
 echo "Packet information stored in output.log"
 #sudo tcpdump -A >output.txt
 #chmod 777 output.txt
