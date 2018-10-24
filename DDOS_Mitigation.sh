@@ -32,7 +32,7 @@ while true ; do
     fi
     if [ $flag -eq 1 ] ; then
     	echo "DDOS attack suspected. Mitigation begins."
-    	#sudo ifconfig en0 down
+    	sudo ifconfig en0 down
     	#echo "Network is down now."
     	#give options to open tcpdump file or restart network
         PS3="What will you like to do next?"$'\n'
@@ -48,11 +48,10 @@ while true ; do
             	;;
        			 "Restore your network")
             		echo "you chose Restore your network"
-            		#sudo ifconfig en0 down
-            		#sudo ifconfig en0 up
-            		#networksetup -setairportpower en0 off
-            		#networksetup -setairportpower en0 on
-            		
+            		sudo ifconfig en0 down
+            		sudo ifconfig en0 up
+            		networksetup -setairportpower en0 off
+            		networksetup -setairportpower en0 on
             	;;
         		"Continue Detection")
             		break
