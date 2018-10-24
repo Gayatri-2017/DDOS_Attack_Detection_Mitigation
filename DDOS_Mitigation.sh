@@ -1,4 +1,4 @@
-echo "Packet information stored in output.txt"
+echo "Packet information stored in output.log"
 #sudo tcpdump -A >output.txt
 #chmod 777 output.txt
 #FILENAME= ~/Desktop/output.txt
@@ -13,17 +13,17 @@ echo "Packet information stored in output.txt"
 #echo "File size is " $actualsize
 #fi
 
-file=output.txt
+file=output.log
 flag=0
 minimumsize=3000000 # 3 MB
-#tcpdump -G 5 -W 1 -w output.txt -i en0 'port 8080'
+#tcpdump -G 5 -W 1 -w $file -i en0 'port 8080'
 
 while true ; do
-	#timeout 5 tcpdump -i en0 -w output.txt
-	#tcpdump -G 5 -W 1 -w output.txt -i en0 -nni udp
-	#tcpdump -G 5 -W 1 -nni en0 udp -w output.txt
-	#tcpdump -nni en0 udp -G 5 -W 1 >output.txt
-	gtimeout 5 tcpdump -nni en0 udp > output.txt #runs for 5 sec
+	#timeout 5 tcpdump -i en0 -w $file
+	#tcpdump -G 5 -W 1 -w $file -i en0 -nni udp
+	#tcpdump -G 5 -W 1 -nni en0 udp -w $file
+	#tcpdump -nni en0 udp -G 5 -W 1 > $file
+	gtimeout 5 tcpdump -nni en0 udp > $file #runs for 5 sec
     actualsize=$(wc -c <"$file")
     echo "File size is " $actualsize
     if [ $actualsize -ge $minimumsize ]; then
