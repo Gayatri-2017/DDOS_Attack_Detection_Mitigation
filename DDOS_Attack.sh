@@ -807,7 +807,7 @@ exit 0
 #so the welcome message MUST be placed at the end of the script
 	clear && echo ""
 
-
+echo -e "\n"
 figlet -f cosmic "GG"
 echo -e "\n"
 

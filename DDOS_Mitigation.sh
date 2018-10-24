@@ -1,3 +1,4 @@
+echo -e "\n"
 figlet -f cosmic "GG"
 echo -e "\n"
 echo "Packet information stored in output.log"
@@ -25,7 +26,7 @@ while true ; do
 	#tcpdump -G 5 -W 1 -w $file -i en0 -nni udp
 	#tcpdump -G 5 -W 1 -nni en0 udp -w $file
 	#tcpdump -nni en0 udp -G 5 -W 1 > $file
-	gtimeout 5 tcpdump -nni en0 udp > $file #runs for 5 sec
+	gtimeout 5 tcpdump -nni en0 > $file #runs for 5 sec
     actualsize=$(wc -c <"$file")
     echo "File size is " $actualsize
     if [ $actualsize -ge $minimumsize ]; then
@@ -33,6 +34,7 @@ while true ; do
         flag=1
     fi
     if [ $flag -eq 1 ] ; then
+        flag=0
     	echo "DDOS attack suspected. Mitigation begins."
     	sudo ifconfig en0 down
     	#echo "Network is down now."
