@@ -1,6 +1,6 @@
-echo -e "\n"
+echo "\n"
 figlet -f cosmic "GG"
-echo -e "\n"
+echo "\n"
 echo "Packet information stored in output.log"
 #sudo tcpdump -A >output.txt
 #chmod 777 output.txt
@@ -20,13 +20,15 @@ file=output.log
 flag=0
 minimumsize=3000000 # 3 MB
 #tcpdump -G 5 -W 1 -w $file -i en0 'port 8080'
+count=5
 
-while true ; do
+while [ "$count" > 5 ] ; do
 	#timeout 5 tcpdump -i en0 -w $file
 	#tcpdump -G 5 -W 1 -w $file -i en0 -nni udp
 	#tcpdump -G 5 -W 1 -nni en0 udp -w $file
 	#tcpdump -nni en0 udp -G 5 -W 1 > $file
-	gtimeout 5 tcpdump -nni en0 > $file #runs for 5 sec
+    ((count--))
+	gtimeout 5 tcpdump -U -nni en0 > $file #runs for 5 sec
     actualsize=$(wc -c <"$file")
     echo "File size is " $actualsize
     if [ $actualsize -ge $minimumsize ]; then
@@ -41,7 +43,7 @@ while true ; do
     	#give options to open tcpdump file or restart network
         PS3="What will you like to do next?"$'\n'
 
-		options=("View tcpdump file" "Restore your network" "Continue Detection")
+		options=("View tcpdump file" "Restore your network" "Exit mitigation?")
 		select opt in "${options[@]}"
 		do
     		case $opt in
@@ -57,17 +59,23 @@ while true ; do
             		networksetup -setairportpower en0 off
             		networksetup -setairportpower en0 on
             	;;
-        		"Continue Detection")
+        		"Exit mitigation?")
             		break
             	;;
         		*) 
 					echo "invalid option $REPLY";;
     		esac
 		done
-		read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
 	fi
 	#echo "Do you want to Quit the program"
-	
+    if [ "$count" = 0 ] ; then
+        read -p "Continue? (Y/N): " confirm
+        if [[ $confirm =~ ^([yY][eE][sS]|[yY])$ ]] ; then
+            count=5;
+        else
+            exit 1;
+        fi
+    fi
 done
 
 #echo "Size of $FILENAME = $FILESIZE bytes."
