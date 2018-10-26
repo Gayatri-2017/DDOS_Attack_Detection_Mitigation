@@ -43,7 +43,7 @@ while [ "$count" > 5 ] ; do
     	#give options to open tcpdump file or restart network
         PS3="What will you like to do next?"$'\n'
 
-		options=("View tcpdump file" "Restore your network" "Exit mitigation?")
+		options=("View tcpdump file" "Restore your network" "Continue Detection?")
 		select opt in "${options[@]}"
 		do
     		case $opt in
@@ -59,7 +59,7 @@ while [ "$count" > 5 ] ; do
             		networksetup -setairportpower en0 off
             		networksetup -setairportpower en0 on
             	;;
-        		"Exit mitigation?")
+        		"Continue Detection?")
             		break
             	;;
         		*) 
@@ -73,6 +73,7 @@ while [ "$count" > 5 ] ; do
         if [[ $confirm =~ ^([yY][eE][sS]|[yY])$ ]] ; then
             count=5;
         else
+        	sudo kill -9 $(ps -e | pgrep tcpdump)
             exit 1;
         fi
     fi
