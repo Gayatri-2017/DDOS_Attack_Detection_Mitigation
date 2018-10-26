@@ -284,8 +284,7 @@ traceroute()
 ##################
 ##START UDPFLOOD##
 udpflood()
-{ echo "UDP Flood uses hping3...checking for hping3..."
-
+{
 #need a valid target IP/hostname
 	echo "Enter target:"
 		read -i $TARGET -e TARGET
@@ -403,7 +402,7 @@ PORT=80 && echo "Invalid port chosen! Reverting to port 80"
 	clear && echo ""
 
 echo -e "\n"
-sudo apt-get install figlet
+#sudo apt-get install figlet
 figlet -f standard "GG"
 echo -e "\n"
 
