@@ -1,6 +1,12 @@
+<<<<<<< HEAD
+echo -e "\n"
+figlet -f standard "GG"
+echo -e "\n"
+=======
 echo "\n"
 figlet -f cosmic "GG"
 echo "\n"
+>>>>>>> 3e25120f85af5bd0fd34ee152013a8beef64256c
 echo "Packet information stored in output.log"
 #sudo tcpdump -A >output.txt
 #chmod 777 output.txt
