@@ -1,5 +1,5 @@
 echo -e "\n"
-figlet -f cosmic "GG"
+figlet -f standard "GG"
 echo -e "\n"
 echo "Packet information stored in output.log"
 #sudo tcpdump -A >output.txt
